@@ -1,12 +1,9 @@
-import client from 'prom-client';
+import { Router } from 'express';
+import { submitJob, getStatus } from '../controllers/job.controller';
 
-export const register = new client.Registry();
-client.collectDefaultMetrics({ register });
+const router = Router();
 
-export const jobSubmitted = new client.Counter({
-  name: 'total_jobs_submitted',
-  help: 'Totals jobs submitted',
-  labelNames: ['type'],
-});
+router.post('/submit', submitJob);
+router.get('/status/:id', getStatus);
 
-register.registerMetric(jobSubmitted);
+export default router;
