@@ -27,5 +27,5 @@ COPY --from=builder /app/apps/worker-service/dist ./dist
 
 ENV NODE_ENV=production
 
-EXPOSE 3000
+EXPOSE 3001
 CMD ["node", "dist/server.js"]

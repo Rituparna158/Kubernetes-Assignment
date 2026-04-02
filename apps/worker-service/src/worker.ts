@@ -65,9 +65,14 @@ export async function startWorker(): Promise<void> {
 
       await connection.set(`job:${job.id}:status`, 'processing');
 
+      //   await new Promise((resolve) => setTimeout(resolve, 10000));
+
+      const start = Date.now();
       const result = processJob(job);
 
-      console.log('Job result:', result);
+      const endTime = Date.now();
+
+      console.log(`processing time: ${endTime - start}ms`);
 
       await connection.set(`job:${job.id}:result`, JSON.stringify(result));
       await connection.set(`job:${job.id}:status`, 'completed');

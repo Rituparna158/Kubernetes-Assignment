@@ -23,4 +23,4 @@ export const jobTime = new client.Histogram({
 
 register.registerMetric(jobProcessed);
 register.registerMetric(jobErrors);
-register.registerMetric(jobErrors);
+register.registerMetric(jobTime);
