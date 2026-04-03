@@ -4,7 +4,7 @@ export const register = new client.Registry();
 client.collectDefaultMetrics({ register });
 
 export const jobSubmitted = new client.Counter({
-  name: 'total_jobs_submitted',
+  name: 'jobs_submitted_total',
   help: 'Totals jobs submitted',
   labelNames: ['type'],
 });

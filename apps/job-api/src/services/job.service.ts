@@ -4,15 +4,20 @@ import { Job } from '../types/job.types';
 const QUEUE = 'job_queue';
 
 export const addJobToQueue = async (job: Job) => {
-  await connection.lpush(QUEUE, JSON.stringify(job)); //push job to redis
+  await connection.lpush(QUEUE, JSON.stringify(job));
 
-  await connection.set(`job:${job.id}:status`, 'pending'); //initialize job status
+  await connection.set(`job:${job.id}:status`, 'pending');
+
+  const submitted = await connection.incr('stats:submitted');
 };
 
 export const getJobStatus = async (jobId: string) => {
-  return await connection.get(`job:${jobId}:status`); // fetch job status from redis
+  const status = await connection.get(`job:${jobId}:status`);
+  return status;
 };
 
 export const getJobResult = async (jobId: string) => {
-  return await connection.get(`job:${jobId}:result`); //fetch job result from redis
+  const result = await connection.get(`job:${jobId}:result`);
+
+  return result;
 };
