@@ -1,29 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: job-api
+  name: stats-service
   namespace: microservices
   labels:
-    app: job-api 
+    app: stats-service 
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: job-api
+      app: stats-service
   template:
     metadata:
       labels:
-        app: job-api
+        app: stats-service
     spec:
       containers:
-        - name: job-api
-          image: job-api
+        - name: stats-service
+          image: stats-service
           imagePullPolicy: Never
           ports:
-            - containerPort: 3000
+            - containerPort: 4000
           env:
-             - name: REDIS_HOST
-               valueFrom:
+            - name: REDIS_HOST
+              valueFrom:
                 configMapKeyRef:
                   name: app-config
                   key: REDIS_HOST
@@ -31,18 +31,16 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: job-api
+  name: stats-service
   namespace: microservices
   labels:
-    app: job-api 
+    app: stats-service
 spec:
   selector:
-    app: job-api
+    app: stats-service
   ports:
-    - port: 3000
-      targetPort: 3000
-      
-
-
+    - name: http
+      port: 4000
+      targetPort: 4000
 
 

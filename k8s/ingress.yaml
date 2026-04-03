@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: job-api-ingress
+  namespace: microservices
+spec:
+  rules:
+    - host: job.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: job-api
+                port:
+                  number: 3000
