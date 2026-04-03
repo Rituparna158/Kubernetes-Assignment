@@ -6,9 +6,11 @@ RUN npm install -g pnpm
 
 COPY . .
 
-RUN pnpm install
+RUN pnpm install --prod=false
 
 WORKDIR /app/apps/stats-service
+
+RUN pnpm install
 
 RUN pnpm build
 
@@ -21,11 +23,11 @@ RUN npm install -g pnpm
 
 COPY --from=builder /app/apps/stats-service/package.json ./
 
-RUN pnpm install --production
+RUN pnpm install --prod
 
 COPY --from=builder /app/apps/stats-service/dist ./dist
 
 ENV NODE_ENV=production
 
-EXPOSE 3002
+EXPOSE 4000
 CMD ["node", "dist/server.js"]

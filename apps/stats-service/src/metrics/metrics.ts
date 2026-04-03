@@ -5,7 +5,7 @@ export const register = new client.Registry();
 client.collectDefaultMetrics({ register });
 
 export const totalJobsSubmitted = new client.Gauge({
-  name: 'total_jobs_submitted',
+  name: 'total_jobs_submitted_gauge',
   help: 'Total number of jobs submitted',
 });
 
