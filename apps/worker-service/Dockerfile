@@ -6,9 +6,11 @@ RUN npm install -g pnpm
 
 COPY . .
 
-RUN pnpm install
+RUN pnpm install --prod=false
 
 WORKDIR /app/apps/worker-service
+
+RUN pnpm install
 
 RUN pnpm build
 
@@ -21,7 +23,7 @@ RUN npm install -g pnpm
 
 COPY --from=builder /app/apps/worker-service/package.json ./
 
-RUN pnpm install --production
+RUN pnpm install --prod
 
 COPY --from=builder /app/apps/worker-service/dist ./dist
 

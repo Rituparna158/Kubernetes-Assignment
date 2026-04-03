@@ -1,7 +1,8 @@
-export type JobType = 'prime' | 'array';
+export type JobType = 'prime' | 'bcrypt' | 'array';
 
 export interface JobPayload {
   limit?: number;
+  rounds?: number;
   size?: number;
 }
 
